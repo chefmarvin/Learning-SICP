@@ -1,6 +1,9 @@
+;; check return value
 (define (p) (p))
 (define (test x y)
-  (if (= x y)
+  (if (= x 0)
 	  0
 	  y))
-(test 0 (p))
+(begin
+  (display (test 0 (p)))
+  (newline))

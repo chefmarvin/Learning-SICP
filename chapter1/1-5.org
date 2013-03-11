@@ -1,0 +1,17 @@
+* 代码
+#+BEGIN_EXAMPLE
+(define (p) (p))
+(define (test x y)
+  (if (= x 0)
+	  0
+	  y))
+(begin
+  (display (test 0 (p)))
+  (newline))
+#+END_EXAMPLE
+* 解释
+- 采用正则序还是应用序求值取决于输出的结果
+** 正则序
+- 完全展开后归约，在(if (= x 0) 0 y)过程中因为(= x 0)为真确定了子表达式为0，能够返回(test 0 (p))的值为0
+** 应用序
+- 先求值参数后应用，遇到表达式中的(p)会无穷的递归下去，所以无法求出(test 0 (p))的值
