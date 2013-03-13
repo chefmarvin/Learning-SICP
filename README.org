@@ -1,1 +1,5 @@
-* SICP习题
+* SICP书后习题
+由
+- scm文件
+- org mode文件
+组成
