@@ -8,19 +8,13 @@
 ;; 6 => 59 = 25 + 2 * 11 + 3 * 4 = 25 + 22 + 12
 ;; ...
 (define (f n)
-  (f-iter 0 n))
-(define (f-iter start n)
-  (cond ((< n 3) n)
-		(() )
-		(+ (f-iter (- start 1) n)
-		   (* 2 (f-iter (- start 2) n))
-		   (* 3 (f-iter (- start 3) n))))
-
-;;  (if (< n 3)
-;;	  n
-;;	  (+ (f-iter )
-;;		 (* 2 (f-iter ))
-;;		 (* 3 (f-iter )))))
+  (define (f-iter target num3 num2 num1 counter)
+	(if (< target 3)
+		target
+		(if (= counter target)
+			(+ num1 (* 2 num2) (* 3 num3))
+			(f-iter target num2 num1 (+ num1 (* 2 num2) (* 3 num3)) (+ counter 1)))))
+  (f-iter n 0 1 2 3))
 (begin
   (display (f (read)))
   (newline))
