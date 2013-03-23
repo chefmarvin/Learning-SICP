@@ -1,0 +1,46 @@
+fi = (1 + qr5)/2
+psi = (1 - qr5)/2
+
+As the hint suggests, I will try to prove
+the lemma:
+
+(*) Fib(n) = (fi^n - psi^n)/qr5
+
+To prove by induction, I'll first prove
+the base cases:
+
+Fib(0) = (fi^0 - psi^0)/qr5 = 0
+Fib(1) = (fi^1 - psi^1)/qr5
+  fi - psi = qr5 =>
+  Fib(1) = qr5/qr5 = 1
+
+Done. Now the induction step. Assuming
+that the lemma (*) is true for n-1 and
+n-2, I will prove that it's true for n:
+
+Fib(n) = Fib(n-1) + Fib(n-2) =
+(fi^(n-1) - psi^(n-1) + fi^(n-2) - psi^(n-2)) / qr5 =
+((fi+1)*fi^(n-2) - (psi+1)*psi(n-2)) / qr5
+
+But fi is the renown Golden Ratio, so:
+
+fi^2 = fi+1
+
+If you check with a calculator, you'll
+see that the same can be said of psi:
+
+(2) psi^2 = psi+1
+
+So if we substitute fi+1 and psi+1:
+
+(fi^2*fi^(n-2) - psi^2*psi^(n-2)) / qr5 =
+(fi^n - psi^n) / qr5
+Q.E.D. hint
+
+Now, to use this hint for the final proof,
+just notice that psi = -0.618, so when n
+becomes large, psi becomes negligible, and
+so Fib(n) can be approximated well by:
+
+fi^n/qr5
+Q.E.D.

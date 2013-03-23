@@ -25,12 +25,19 @@
 
 ;; theta
 (define theta (/ (+ 1 (sqrt 5)) 2))
+;; (begin
+;;   (display theta)
+;;   (newline))
 
 ;; n-times
 (define (n-times x n)
   (if (= n 0)
 	  1
 	  (* x (n-times x (- n 1)))))
+
+;; (begin
+;;   (display (n-times 2 30))
+;;   (newline))
 
 (define (target n)
   (/ (n-times theta n) (sqrt 5)))
