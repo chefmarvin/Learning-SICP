@@ -2,13 +2,11 @@
 ;; sqrt
 (define (sqrt x)
 	(define (good-enough? guess x)
-	  (define (square x)
-		(* x x))
-	  (< (abs (- (square guess) x)) 0.001))
+	  (< (abs (- ((lambda (x) (* x x))    ;; square
+				  guess) x)) 0.001))
 	(define (improve guess x)
-	  (define (average x y)
-		(/ (+ x y) 2))
-	  (average guess (/ x guess)))
+	  ((lambda (a b) (/ (+ a b) 2.0))    ;; average
+	   guess (/ x guess)))
 	(define (sqrt-iter guess x)
 	  (if (good-enough? guess x)
 		  guess
@@ -23,30 +21,29 @@
 		(fib-iter (+ a b) a (- count 1))))
   (fib-iter 1 0 n))
 
-;; theta
-(define theta (/ (+ 1 (sqrt 5)) 2))
-;; (begin
-;;   (display theta)
-;;   (newline))
-
-;; n-times
-(define (n-times x n)
-  (if (= n 0)
-	  1
-	  (* x (n-times x (- n 1)))))
-
-;; (begin
-;;   (display (n-times 2 30))
-;;   (newline))
-
 (define (target n)
+  ;; theta
+  (define theta (/ (+ 1 (sqrt 5)) 2))
+  ;; n-times
+  (define (n-times x n)
+	(define (n-iter x counter n)
+	  (if (> counter n)
+		  1
+		  (* x (n-iter x (+ counter 1) n))))
+	(n-iter x 1 n))
   (/ (n-times theta n) (sqrt 5)))
 
 (begin
   (define param (read))
-  (display (fib param))
+  (define fib-result 0)
+  (define target-result 0)
+
+  (set! fib-result (fib param))
+  (set! target-result (target param))
+
+  (display fib-result)
   (newline)
-  (display (target param))
+  (display target-result)
   (newline)
-  (display (abs (- (fib param) (target param))))
+  (display (abs (- fib-result target-result)))
   (newline))
