@@ -1,5 +1,0 @@
-~/document/lisp/scheme/code/SICP/chapter2 $ ./2-3-2.scm 
-./2-3-2.scm: Permission denied
-~/document/lisp/scheme/code/SICP/chapter2 $ chown 700 2-3-2.scm
-/bin/chown: 正在更改"2-3-2.scm" 的所有者: 不允许的操作
-~/document/lisp/scheme/code/SICP/chapter2 $ chmod 700 2-3-2.scm
