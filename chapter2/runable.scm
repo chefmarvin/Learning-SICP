@@ -43,33 +43,30 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; 构造矩形需要线段和点的构造函数和选择函数
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(define (make-rectangle length width)
-  (cons length width))
-(define (len-rectangle rectangle)
-  (car rectangle))
-(define (wid-rectangle rectangle)
-  (cdr rectangle))
+(define (make-rectangle x1 y1 x2 y2 x3 y3 x4 y4)
+  (let ((gou (length (make-segment (make-point x1 y1)
+								   (make-point x2 y2))))
+		(gu (length (make-segment (make-point x1 x2)
+								  (make-point x3 y3))))
+		(xuan (length (make-segment (make-point x1 x2)
+									(make-point x4 y4)))))
+	(cond ((= gou (max gou gu xuan)) (cons gu xuan))
+		  ((= gu (max gou gu xuan)) (cons gou xuan))
+		  (else (cons gou gu)))))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; 计算周长和面积的函数，接受矩形作为参数，返回周长或面积
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (define (area rectangle)
-  (* (length (car rectangle))
-	 (length (cdr rectangle))))
+  (* (car rectangle)
+	 (cdr rectangle)))
 (define (perimeter rectangle)
-  (* (+ (length (car rectangle))
-		(length (cdr rectangle)))
+  (* (+ (car rectangle) (cdr rectangle))
 	 2))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; 使用面积和周长函数进行计算
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(define rectangle-sample
-  (make-rectangle (make-segment (make-point 0 0)
-								(make-point 0 2))
-				  (make-segment (make-point 0 0)
-								(make-point 4 0))))
-
 (begin
-  (display (area rectangle-sample))
+  (display (area (make-rectangle 0 0 0 2 4 2 4 0)))
   (newline)
-  (display (perimeter rectangle-sample))
+  (display (perimeter (make-rectangle 0 0 0 2 4 2 4 0)))
   (newline))
