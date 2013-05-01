@@ -2,17 +2,16 @@
 !#
 ;;; SICP Practice: 2-6
 (define zero
-  (lambda (f) (lambda (x) x)))
+  (lambda (f)
+	(lambda (x) x)))
 
 (define (add-1 n)
-  (lambda (f) (lambda (x) (f ((n f) x)))))
-
-(begin
-  (display zero)
-  (newline))
+  (lambda (f)
+	(lambda (x) (f ((n f) x)))))
 
 (define one
-  (lambda (f) ()))
+  (lambda (f)
+	(lambda (f) ())))
 
 (define two
   (lambda (f) ()))
