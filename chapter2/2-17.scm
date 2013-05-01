@@ -5,4 +5,5 @@
 	  (last-pair (cdr sample))))
 (begin
   (display (last-pair '(1 2 3 4)))
+  (display (rest-pair '(1 2 3 4)))
   (newline))
