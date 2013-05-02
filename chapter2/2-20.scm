@@ -1,0 +1,21 @@
+;; SICP Practice: 2-20
+(define (same-parity target . sample)
+  (define (odd-pick sample)
+	(if (null? sample)
+		'()
+		(if (odd? (car sample))
+			(cons (car sample) (odd-pick (cdr sample)))
+			(odd-pick (cdr sample)))))
+  (define (even-pick sample)
+	(if (null? sample)
+		'()
+		(if (even? (car sample))
+			(cons (car sample) (even-pick (cdr sample)))
+			(even-pick (cdr sample)))))
+  (if (odd? target)
+	  (append (list target) (odd-pick sample))
+	  (append (list target) (even-pick sample))))
+
+(begin
+  (display (same-parity 1 2 3 4 5 6 7 8 9))
+  (newline))
