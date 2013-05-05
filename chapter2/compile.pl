@@ -1,11 +1,13 @@
 #! /usr/bin/perl -w
-# Guile
-$number = "$ARGV[0]";
-print "========== *Racket* ==========\n";
-$racket = "mzscheme -r 2-".$number.".scm";
-system($racket);
+$chapter = "2";
+$id = "$ARGV[0]";
 
 # Racket
+print "========== *Racket* ==========\n";
+$racket = "mzscheme -r ".$chapter."-".$id.".scm";
+system($racket);
+
+# Guile
 print "========== *Guile* ==========\n";
-$guile = "guile 2-".$number.".scm";
+$guile = "guile ".$chapter."-".$id.".scm";
 system($guile);
