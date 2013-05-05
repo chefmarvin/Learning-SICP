@@ -1,10 +1,12 @@
 ;; SICP Practice: 2-27
+;; 最小不可分解的 list 的形式是 '(a b)
+;; a 和 b 不能为 list
 (define (deep-reverse items)
-  (cond ((null? items) 0)
-		((not (list? items)) 0)
-		(else (begin (list-reverse items)
-					 (deep-reverse (cdr items))
-					 (deep-reverse (car items))))))
+  (if (and (eqv? #f (pair? (car items)))
+		   (eqv? #t (list? (cdr items))))
+	  (append (list (cadr items)) (list (car items)))
+	  (append (list (deep-reverse (car (list-reverse items))))
+			  (list (deep-reverse (cadr (list-reverse items)))))))
 
 (define (list-reverse sample)
   (define (last-pair sample)
