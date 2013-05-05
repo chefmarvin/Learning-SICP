@@ -1,5 +1,3 @@
-#!/usr/bin/guile -s
-!#
 ;;; SICP Practice: 2-5
 (define (exp a n)
   (define (exp-iter a n counter)

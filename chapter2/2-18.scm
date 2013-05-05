@@ -1,4 +1,3 @@
-#! /usr/bin/mzscheme -r
 ;; SICP Practice: 2-18
 (define (list-reverse sample)
   (define (last-pair sample)

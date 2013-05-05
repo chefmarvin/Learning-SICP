@@ -1,5 +1,3 @@
-#!/usr/bin/guile -s
-!#
 ;; 有理数的加减乘除和判等
 ;; 构造序对
 (define (make-rat n d)

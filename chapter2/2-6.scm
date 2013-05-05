@@ -1,5 +1,3 @@
-#!/usr/bin/guile -s
-!#
 ;;; SICP Practice: 2-6
 (define zero
   (lambda (f)

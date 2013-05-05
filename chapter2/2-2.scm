@@ -1,5 +1,3 @@
-#!/usr/bin/guile -s
-!#
 ;; 线段的表示
 ;; 构造函数
 (define (make-segment point1 point2)

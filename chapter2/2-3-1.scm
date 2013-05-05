@@ -1,5 +1,3 @@
-#!/usr/bin/guile -s
-!#
 ;; 矩形的表示
 (define (make-rectangle length wide)
   (cons length wide))
