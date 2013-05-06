@@ -1,12 +1,21 @@
 ;; SICP Practice: 2-27
-;; 最小不可分解的 list 的形式是 '(a b)
-;; a 和 b 不能为 list
 (define (deep-reverse items)
-  (if (and (eqv? #f (pair? (car items)))
-		   (eqv? #t (list? (cdr items))))
-	  (append (list (cadr items)) (list (car items)))
-	  (append (list (deep-reverse (car (list-reverse items))))
-			  (list (deep-reverse (cadr (list-reverse items)))))))
+  (define (atom-list? items)
+	(if (not (list? items))
+		(error "Parameter is not a list: " items)
+		(if (null? items)
+			#t
+			(if (list? (car items))
+				#f
+				(atom-list? (cdr items))))))
+  (cond ((not (pair? items)) (begin
+							   (display items)
+							   (newline)							   
+							   (append items)))
+		((and (pair? items) (not (list? items))) (append items))
+		((atom-list? items) (append (list-reverse items)))
+		(else (append (list (deep-reverse (car (list-reverse items))))
+					  (deep-reverse (cdr (list-reverse items)))))))
 
 (define (list-reverse sample)
   (define (last-pair sample)
@@ -25,7 +34,15 @@
   (reverse-iter sample (length sample)))
 
 (begin
-  (display (list-reverse '((1 2) (3 4))))
+  (display '((1 2) (3 . 4)))
   (newline)
-  (display (deep-reverse '((1 2) (3 4))))
+  (display (list-reverse '((1 2) (3 . 4))))
+  (newline)
+  (display (deep-reverse '((1 2) (3 . 4))))
+  (newline)
+  (display '(1 (2 3 4) 5 (6 7)))
+  (newline)
+  (display (list-reverse '(1 (2 3 4) 5 (6 7))))
+  (newline)  
+  (display (deep-reverse '(1 (2 3 4) 5 (6 7))))
   (newline))
