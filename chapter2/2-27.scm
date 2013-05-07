@@ -8,10 +8,7 @@
 			(if (list? (car items))
 				#f
 				(atom-list? (cdr items))))))
-  (cond ((not (pair? items)) (begin
-							   (display items)
-							   (newline)							   
-							   (append items)))
+  (cond ((not (pair? items)) (append items))
 		((and (pair? items) (not (list? items))) (append items))
 		((atom-list? items) (append (list-reverse items)))
 		(else (append (list (deep-reverse (car (list-reverse items))))

@@ -2,7 +2,7 @@
 # Useage: chmod 700 compile.pl
 # Useage: ./compile.pl [number] [guile/racket]
 use Switch;
-$chapter = "1";
+$chapter = "3";
 $id = "$ARGV[0]";
 $compiler = "$ARGV[1]";
 

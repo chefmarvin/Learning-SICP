@@ -1,3 +1,16 @@
 * SICP书后习题
-** 全部程序用 guile 编译
-** 由 .scm 文件和 .org 文件组成
+** 程序设计题
+*** 由 .scm 文件组成
+*** 全部程序可用 guile 或 racket 编译
+*** 每一章文件夹下也提供了 perl 脚本使编译程序便捷一些
+- ./compile.pl [本章内的题目编号] [解释器种类]
+  #+BEGIN_EXAMPLE
+  # 用 guile 编译本章的第 1 题
+  ./compile.pl 1 guile
+  # 用 racket 编译本章的第 2 题
+  ./compile.pl 2 racket
+  # 第二个参数缺省情况下，同时用 guile 和 racket 编译，这里是编译本章的第 3 题
+  ./compile.pl 3
+  #+END_EXAMPLE
+** 文字说明题
+*** 由 .org 文件组成

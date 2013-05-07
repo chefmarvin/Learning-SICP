@@ -1,17 +1,35 @@
-#! /usr/bin/perl -w
+#! /usr/bin/perl
+# Useage: chmod 700 compile.pl
+# Useage: ./compile.pl [number] [guile/racket]
+use Switch;
 $chapter = "2";
 $id = "$ARGV[0]";
+$compiler = "$ARGV[1]";
 
-if ($id) {
-    # Racket
-	print "========== *Racket* ==========\n";
-	$racket = "mzscheme -r ".$chapter."-".$id.".scm";
-	system($racket);
+if (!$compiler) {
+	if ($id) {
+		&Guile;
+		&Racket;
+	} else {
+		print "Argument lost.\n";
+	}
+} else {
+	switch ($compiler) {
+		case "guile" { &Guile }
+		case "racket" { &Racket }
+	}
+}
 
-    # Guile
+# Guile
+sub Guile {
 	print "========== *Guile* ==========\n";
 	$guile = "guile ".$chapter."-".$id.".scm";
 	system($guile);
-} else {
-    print "Example: ./compile.pl 1\n";
+}
+
+# Racket
+sub Racket {
+	print "========== *Racket* ==========\n";
+	$racket = "mzscheme -r ".$chapter."-".$id.".scm";
+	system($racket);
 }
