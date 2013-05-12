@@ -38,10 +38,10 @@
   (newline)
   (display (deep-reverse '((1 2) (3 . 4))))
   (newline)
-  (display '(1 (2 (3 4)) 5 (6 7)))
+  (display '(1 ((2 3) 4) 5 (6 7)))
   (newline)
-  (display (list-reverse '(1 (2 (3 4)) 5 (6 7))))
+  (display (list-reverse '(1 ((2 3) 4) 5 (6 7))))
   (newline)
-  (display (deep-reverse '(1 (2 (3 4)) 5 (6 7))))
+  (display (deep-reverse '(1 ((2 3) 4) 5 (6 7))))
   (newline))
 
