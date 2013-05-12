@@ -9,9 +9,13 @@
 				#f
 				(atom-list? (cdr items))))))  
   (map (lambda (sub-items)
-		 (if (atom-list? sub-items)
-			 (list-reverse items)
-			 (deep-reverse sub-items)))
+		 ;; (if (atom-list? sub-items)
+		 ;; 	 (list-reverse items)
+		 ;; 	 (deep-reverse sub-items))
+		 (cond ((not (pair? items)) sub-items)
+			   ((and (pair? items) (not (list? items))) sub-items)
+			   ((atom-list? items) (list-reverse sub-items))
+			   (else (deep-reverse sub-items))))
 	   items))
 
 (define (list-reverse sample)
