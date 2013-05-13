@@ -1,4 +1,5 @@
 ;; SICP Practice: 2-30
+;; square-tree use map
 (define (square-tree items)
   (map (lambda (sub-tree)
   	 (if (pair? sub-tree)
