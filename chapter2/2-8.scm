@@ -6,6 +6,7 @@
 (define (add-interval x y)
   (make-interval (+ (lower-bound x) (lower-bound y))
 				 (+ (upper-bound x) (upper-bound y))))
+;; 两个区间的减法
 (define (sub-interval x y)
   (let ((z (cons (min (- (car y)) (- (cdr y)))
 				 (max (- (car y)) (- (cdr y))))))
@@ -19,9 +20,9 @@
 	(make-interval (min p1 p2 p3 p4)
 				   (max p1 p2 p3 p4))))
 (define (div-interval x y)
-  (make-interval x
-				 (make-interval (/ 1.0 (upper-bound y))
-								(/ 1.0 (lower-bound y)))))
+  (mul-interval x
+				(make-interval (/ 1.0 (upper-bound y))
+							   (/ 1.0 (lower-bound y)))))
 
 (define (display-interval x)
   (display (car x))
