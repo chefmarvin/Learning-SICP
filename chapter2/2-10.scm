@@ -1,4 +1,4 @@
-;; SICP Practice: 2-9
+;; SICP Practice: 2-10
 (define (make-interval a b) (cons a b))
 (define (lower-bound x) (car x))
 (define (upper-bound x) (cdr x))
@@ -19,14 +19,12 @@
 	(make-interval (min p1 p2 p3 p4)
 				   (max p1 p2 p3 p4))))
 (define (div-interval x y)
-  (mul-interval x
-				(make-interval (/ 1.0 (upper-bound y))
-							   (/ 1.0 (lower-bound y)))))
-
-(define (interval-range interval)
-  (abs (/ (- (upper-bound interval)
-			 (lower-bound interval))
-		  2.0)))
+  (let ((result (mul-interval x
+							  (make-interval (/ 1.0 (upper-bound y))
+											 (/ 1.0 (lower-bound y))))))
+	(if (and (<= (lower-bound y) 0) (>= (upper-bound y) 0))
+		(error "divisor may be zero:" result)
+		result)))
 
 (define (display-interval x)
   (display (car x))
@@ -35,19 +33,8 @@
 
 
 (define interval-1 (cons 6.12 7.48))
-(define interval-2 (cons 4.465 4.935))
+(define interval-2 (cons -4.465 4.935))
 
 (begin
-  ;; 宽度的和等于加法的宽度和减法的宽度
-  (display (+ (interval-range interval-1)
-			  (interval-range interval-2)))
-  (newline)  
-  (display (interval-range (add-interval interval-1 interval-2)))
-  (newline)
-  (display (interval-range (sub-interval interval-1 interval-2)))
-  (newline)
-  ;; 对于乘和除则不是这样
-  (display (interval-range (mul-interval interval-1 interval-2)))
-  (newline)
-  (display (interval-range (div-interval interval-1 interval-2)))
+  (display-interval (div-interval interval-1 interval-2))
   (newline))
