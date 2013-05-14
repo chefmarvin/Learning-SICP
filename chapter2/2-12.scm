@@ -1,7 +1,23 @@
-;; SICP Practice: 2-11
+;; SICP Practice: 2-12
 (define (make-interval a b) (cons a b))
 (define (lower-bound x) (car x))
 (define (upper-bound x) (cdr x))
+
+(define (make-center-width c w)
+  (make-interval (- c w) (+ c w)))
+
+(define (center i)
+  (/ (+ (lower-bound i) (upper-bound i)) 2))
+
+(define (width i)
+  (/ (- (upper-bound i) (lower-bound i)) 2))
+
+(define (make-center-percent c p)
+  (let ((unsure (* c p)))
+	(make-interval (- c unsure) (+ c unsure))))
+
+(define (percent i)
+  (/ (width i) (center i)))
 
 (define (add-interval x y)
   (make-interval (+ (lower-bound x) (lower-bound y))
@@ -11,29 +27,13 @@
 				 (max (- (car y)) (- (cdr y))))))
 	(make-interval (+ (lower-bound x) (lower-bound z))
 				   (+ (upper-bound x) (upper-bound z)))))
-;; 9种情况能降低计算的数量
 (define (mul-interval x y)
-  (cond ((and (>= (lower-bound x) 0) (>= (lower-bound y) 0))
-		 (make-interval (* (lower-bound x) (lower-bound y))
-						(* (upper-bound x) (upper-bound y))))
-		((and () ())
-		 (make-interval ()
-						()))    ;; 2 
-		(() )    ;; 3 
-		(() )    ;; 4 
-		(() )    ;; 5 
-		(() )    ;; 6 
-		(() )    ;; 7 
-		(() )    ;; 8 
-		(else ()))    ;; 9 
-  ;; 进行了 4 次计算
   (let ((p1 (* (lower-bound x) (lower-bound y)))
-  		(p2 (* (lower-bound x) (upper-bound y)))
-  		(p3 (* (upper-bound x) (lower-bound y)))
-  		(p4 (* (upper-bound x) (upper-bound y))))
-  	(make-interval (min p1 p2 p3 p4)
-  				   (max p1 p2 p3 p4)))
-  )
+		(p2 (* (lower-bound x) (upper-bound y)))
+		(p3 (* (upper-bound x) (lower-bound y)))
+		(p4 (* (upper-bound x) (upper-bound y))))
+	(make-interval (min p1 p2 p3 p4)
+				   (max p1 p2 p3 p4))))
 (define (div-interval x y)
   (let ((result (mul-interval x
 							  (make-interval (/ 1.0 (upper-bound y))
@@ -52,5 +52,7 @@
 (define interval-2 (cons -4.465 4.935))
 
 (begin
-  (display-interval (div-interval interval-1 interval-2))
+  (display-interval (make-center-percent 6.8 0.1))
+  (newline)
+  (display (percent interval-1))
   (newline))
