@@ -1,4 +1,4 @@
-;; SICP Practice: 3-33
+;; SICP Practice: 2-33
 ;; 累积器
 (define (accumulate op initial sequence)
   (if (null? sequence)
@@ -17,7 +17,10 @@
 			  seq1))
 
 (define (length sequence)
-  (accumulate (lambda (x y) (+ y 1))
+  (accumulate (lambda (x y) (begin
+							  (display y)
+							  (newline)
+							  (+ y 1)))
 			  0
 			  sequence))
 
@@ -26,5 +29,5 @@
   (newline)
   (display (append '(1 2) '(3 4)))
   (newline)
-  (display (length '(1 2 3 4 5)))
+  (display (length '(1 2 3 4 6)))
   (newline))
