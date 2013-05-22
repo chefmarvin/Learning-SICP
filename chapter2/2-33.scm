@@ -17,10 +17,7 @@
 			  seq1))
 
 (define (length sequence)
-  (accumulate (lambda (x y) (begin
-							  (display y)
-							  (newline)
-							  (+ y 1)))
+  (accumulate (lambda (x y) (+ y 1))
 			  0
 			  sequence))
 
