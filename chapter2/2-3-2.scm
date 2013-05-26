@@ -1,14 +1,11 @@
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; 矩形的表示
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; SICP Practice: 2-3
 (define (make-point x y)
   (cons x y))
 (define (x-point point)
   (car point))
 (define (y-point point)
   (cdr point))
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; 构造线段用到点的选择函数
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (define (make-segment point1 point2)
   (cons point1 point2))
@@ -44,30 +41,31 @@
 (define (make-rectangle length width)
   (cons length width))
 (define (len-rectangle rectangle)
-  (car rectangle))
+  (length (car rectangle)))
 (define (wid-rectangle rectangle)
-  (cdr rectangle))
+  (length (cdr rectangle)))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; 计算周长和面积的函数，接受矩形作为参数，返回周长或面积
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (define (area rectangle)
-  (* (length (car rectangle))
-	 (length (cdr rectangle))))
+  (* (len-rectangle rectangle)
+	 (wid-rectangle rectangle)))
 (define (perimeter rectangle)
-  (* (+ (length (car rectangle))
-		(length (cdr rectangle)))
+  (* (+ (len-rectangle rectangle)
+		(wid-rectangle rectangle))
 	 2))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; 使用面积和周长函数进行计算
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(define rectangle-sample
-  (make-rectangle (make-segment (make-point 0 0)
-								(make-point 0 2))
-				  (make-segment (make-point 0 0)
-								(make-point 4 0))))
+
 
 (begin
-  (display (area rectangle-sample))
+  (define sample
+	(make-rectangle (make-segment (make-point 0 0)
+								  (make-point 0 3.46410161513748))
+					(make-segment (make-point 0 0)
+								  (make-point 2 0))))
+  (display (area sample))
   (newline)
-  (display (perimeter rectangle-sample))
+  (display (perimeter sample))
   (newline))
