@@ -16,18 +16,30 @@
   (cadr e))
 
 (define (augend e)    ;; e 的加数
-  ;; (caddr e))
-  (cddr e))
+  (if (= 3 (length e))
+	  (caddr e)
+	  (cddr e)))
 
 (define (make-sum a1 a2)    ;; 构造起 a1 与 a2 的和式
-  (if (= 1 (length a2))    ;; a2 长度为 1
+  (if (or (= (length a2) 1) (number? a2))
 	  (cond ((=number? a1 0) (car a2))
-			((=number? (car a2) 0) a1)
-			((and (number? a1) (number? (car a2))) (+ a1 (car a2)))
-			(else (if (and (not (sum? a2)) (not (product? a2)))
-					  (append '(+) '(a1) a2)
-					  (list '+ a1 (car a2)))))
-	  (list '+ a1 a2)))
+			  ((=number? (car a2) 0) a1)
+			  ((and (number? a1) (number? (car a2))) (+ a1 (car a2)))
+			  (else (list '+ a1 (car a2))))
+	  (list '+ a1 (make-sum (car a2) (cdr a2)))))
+
+;; (define (make-sum a1 a2)
+;;   (cond ((and (not (pair? a1)) (not (pair? a2)))
+;; 		 (cond ((=number? a1 0) a2)
+;; 			   ((=number? a2 0) a1)
+;; 			   ((and (number? a1) (number? a2)) (+ a1 a2))
+;; 			   (else (list '+ a1 a2))))
+;; 		((and (not (pair? a1)) (pair? a2))
+;; 		 1)
+;; 		((and (not (pair? a2)) (pair? a1))
+;; 		 2)
+;; 		(else
+;; 		 3)))
 
 (define (product? e)    ;; e 是乘式
   (and (pair? e) (eq? (car e) '*)))
@@ -36,19 +48,18 @@
   (cadr e))
 
 (define (multiplicand e)    ;; e 的乘数
-  ;; (caddr e))
-  (cddr e))  
+  (if (= 3 (length e))
+	  (caddr e)
+	  (cddr e)))
 
 (define (make-product m1 m2)    ;; 构造起 m1 与 m2 的乘式
-  (if (= 1 (length m2))
-	  (cond ((or (=number? m1 0) (=number? (car m2) 0)) 0)
-			((=number? m1 1) (car m2))
-			((=number? (car m2) 1) m1)
-			((and (number? m1) (number? (car m2))) (* m1 (car m2)))
-			(else (if (and (not (sum? m2)) (not (product? m2)))
-					  (append '(*) '(m1) m2)
-					  (list '* m1 (car m2)))))
-	  (list '* m1 m2)))
+  (if (not (pair? m2))    ;; (= (length m2) 1)
+	  (cond ((or (=number? m1 0) (=number? m2 0)) 0)
+			((=number? m1 1) m2)
+			((=number? m2 1) m1)
+			((and (number? m1) (number? m2)) (* m1 m2))
+			(else (list '* m1 m2)))
+	  (list '* m1 (make-product (car m2) (cdr m2)))))
 
 (define (exponentiation? e)    ;; e 是乘幂式吗？
   (and (pair? e) (eq? (car e) '**)))
@@ -103,9 +114,10 @@
   (newline)
   (display (deriv '(* x y) 'x))
   (newline)
-  (display (deriv '(* x y (+ x 3)) 'x))
-  (newline)
   (display (deriv '(* (* x y) (+ x 3)) 'x))
   (newline)
   (display (deriv '(+ (** x 3) (* 2 x)) 'x))
+  (newline)
+  ;; new test case
+  (display (deriv '(* x y (+ x 3)) 'x))
   (newline))
