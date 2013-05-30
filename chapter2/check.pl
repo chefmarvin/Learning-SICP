@@ -1,51 +1,18 @@
-#! /usr/bin/perl 
+#! /usr/bin/perl
 # Check the process
-$TOTAL = 97;
-$FINISHED = 0;
-$UNFINISHED = 97;
+$total = 97;
+$finished = 0;
+$unfinished = 97;
 
-@showlist = `ls`;
 
-&finished;
-&unfinished;
-
-sub check {
-	for (my $id = 1; $id <= 97; $id++) {
-		foreach (@showlist) {
-			s/2-//;
-			s/.scm//;
-			s/.org//;
-			s/-.$//;
-			
-			if ($id == $_) {
-				$FINISHED++;
-				$UNFINISHED--;
-				# print $id." ";
-				last;
-			}
-		}
+for (my $var = 1; $var < 97; $var++) {
+	if (0 == system("ls 2-$var.scm")) {
+		$finished++;
+	} else {
+		$unfinished--;
 	}
-	# print "\n\n";
 }
 
-sub finished {
-	&check("finished");
-	print "Finished: ".$FINISHED."\n";
-	print "\n";
-	$FINISHED = 0;
-	$UNFINISHED = 97;
-}
-
-sub unfinished {
-	&check("unfinished");
-	print "Unfinished: ".$UNFINISHED."\n";
-	print "\n";
-	&rate;
-	$FINISHED = 0;
-	$UNFINISHED = 97;
-}
-
-sub rate {
-    print "Done: ".($FINISHED / $TOTAL * 100)."%";
-	print "\n";
-}
+print "FINISHED: ".$finished."\n";
+print "UNFINISHED: ".$unfinished."\n";
+print $finished / $total."\n";

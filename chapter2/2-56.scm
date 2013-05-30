@@ -93,5 +93,7 @@
   (newline)
   (display (deriv '(* (* x y) (+ x 3)) 'x))
   (newline)
+  (display (deriv '(* x (* y (+ x 3))) 'x))
+  (newline)
   (display (deriv '(+ (** x 3) (* 2 x)) 'x))
   (newline))
