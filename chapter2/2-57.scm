@@ -16,11 +16,25 @@
   (cadr e))
 
 (define (augend e)    ;; e 的加数
+  (define (transform e)
+	(let ((head (car e))
+		  (tail (cdr e)))
+	  (list '+ head (transform tail)))
+	(if (and (pair? e)
+			 (not (sum? e))
+			 (not (product? e))
+			 (not (eqv? '() (cdr e))))
+		(let ((tmp (cdr e)))
+		  (list '+ (augend )))))
   (if (= 1 (length (cddr e)))
 	  (caddr e)
-	  (append '(+) (cddr e))))
+	  (transform (cddr e))))
 
 (define (make-sum a1 a2)    ;; 构造起 a1 与 a2 的和式
+  ;; (cond ((=number? a1 0) a2)
+  ;; 		((=number? a2 0) a1)
+  ;; 		((and (number? a1) (number? a2)) (+ a1 a2))
+  ;; 		(else (list '+ a1 a2)))
   (if (and (pair? a2)
 		   (not (sum? a2))
 		   (not (product? a2))
@@ -49,6 +63,11 @@
 	  (append '(*) (cddr e))))    ;; * 对应的变量多于2个的话，返列表
 
 (define (make-product m1 m2)    ;; 构造起 m1 与 m2 的乘式
+  ;; (cond ((or (=number? m1 0) (=number? m2 0)) 0)
+  ;; 		((=number? m1 1) m2)
+  ;; 		((=number? m2 1) m1)
+  ;; 		((and (number? m1) (number? m2)) (* m1 m2))
+  ;; 		(else (list '* m1 m2)))
   (if (and (pair? m2)
 		   (not (sum? m2))
 		   (not (product? m2))
