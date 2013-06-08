@@ -7,7 +7,7 @@
 
 (define (fold-left op initial sequence)
   (define (iter result rest)
-	(if (null? result)
+	(if (null? rest)
 		result
 		(iter (op result (car rest))
 			  (cdr rest))))
@@ -21,4 +21,10 @@
   (display (fold-right list '() (list 1 2 3)))
   (newline)
   (display (fold-left list '() (list 1 2 3)))
+  (newline)
+  ;; fold-right 和 fold-left 结果相同 op 所需要的性质
+  ;; 只要 op 操作的参数交换位置后结果不变即可
+  (display (fold-right + 0 '(1 2 3)))
+  (newline)
+  (display (fold-left + 0 '(1 2 3)))
   (newline))
