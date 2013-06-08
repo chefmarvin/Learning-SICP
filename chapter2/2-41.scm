@@ -11,17 +11,12 @@
 	  (cons low
 			(enumerate-interval (+ low 1) high))))
 
-(define (add-equal? n seq)
-  (if (= n (accumulate + 0 seq))
-	  #t
-	  $f))
-
-(define (flatmap proc seq)
-  (accumulate append
-			  '()
-			  (map proc seq)))
 
 (define (permutations s)
+  (define (flatmap proc seq)
+	(accumulate append
+				'()
+				(map proc seq)))  
   (define (remove item sequence)
 	(filter (lambda (x) (not (= x item)))
 			sequence))
