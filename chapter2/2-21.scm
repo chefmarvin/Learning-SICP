@@ -5,8 +5,8 @@
 ;; method #2
 (define (square-list-2 items)
   (if (null? items)
-	  '()
-	  (cons ((lambda (x) (* x x)) (car items)) (square-list-2 (cdr items)))))
+      '()
+      (cons ((lambda (x) (* x x)) (car items)) (square-list-2 (cdr items)))))
 
 (begin
   (display (square-list-1 (list 1 2 3 4)))

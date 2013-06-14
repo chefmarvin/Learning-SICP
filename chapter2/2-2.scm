@@ -16,15 +16,15 @@
 (define (midpoint-segment segment)
   (cons
    (/ (+ (x-point (start-segment segment))
-		 (x-point (end-segment segment)))
-	  2)
+	 (x-point (end-segment segment)))
+      2)
    (/ (+ (y-point (start-segment segment))
-		 (y-point (end-segment segment)))
-	  2)))
+	 (y-point (end-segment segment)))
+      2)))
 
 (define point-A
   (make-segment (make-point 3 5)
-				(make-point 17 -1)))
+		(make-point 17 -1)))
 (begin
   (display (midpoint-segment point-A))
   (newline))

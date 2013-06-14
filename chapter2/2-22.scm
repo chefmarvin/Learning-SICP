@@ -3,11 +3,11 @@
 ;; 原因是：
 (define (square-list items)
   (define (iter answer things)
-	(if (null? things)
-		answer
-		(iter (cons ((lambda (x) (* x x)) (car things))
-					answer)
-			  (cdr things))))
+    (if (null? things)
+	answer
+	(iter (cons ((lambda (x) (* x x)) (car things))
+		    answer)
+	      (cdr things))))
   (iter '() items))
 
 (begin

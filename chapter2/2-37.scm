@@ -1,15 +1,15 @@
 ;; SICP Practice: 2-37
 (define (accumulate op initial sequence)
   (if (null? sequence)
-	  initial
-	  (op (car sequence)
-		  (accumulate op initial (cdr sequence)))))
+      initial
+      (op (car sequence)
+	  (accumulate op initial (cdr sequence)))))
 
 (define (accumulate-n op init seqs)
   (if (null? (car seqs))
-	  '()
-	  (cons (accumulate op init (map car seqs))
-			(accumulate-n op init (map cdr seqs)))))
+      '()
+      (cons (accumulate op init (map car seqs))
+	    (accumulate-n op init (map cdr seqs)))))
 
 ;; 作为矩阵的行和列的运算
 (define (dot-product v w)
@@ -18,13 +18,13 @@
 ;; 矩阵乘以向量
 (define (matrix-*-vector m v)
   (map (lambda (mat) (dot-product mat v))
-	   m))
+       m))
 
 ;; 矩阵乘以矩阵
 (define (matrix-*-matrix m n)
   (let ((cols (transpose n)))
-	(map (lambda (mat) (matrix-*-vector cols mat))
-		 m)))
+    (map (lambda (mat) (matrix-*-vector cols mat))
+	 m)))
 
 ;; 逆矩阵
 (define (transpose mat)

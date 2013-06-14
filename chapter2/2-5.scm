@@ -1,9 +1,9 @@
 ;;; SICP Practice: 2-5
 (define (exp a n)
   (define (exp-iter a n counter)
-	(if (= counter 0)
-		1
-		(* a (exp-iter a n (- counter 1)))))
+    (if (= counter 0)
+	1
+	(* a (exp-iter a n (- counter 1)))))
   (exp-iter a n n))
 
 (define (cons x y)

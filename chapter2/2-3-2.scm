@@ -18,23 +18,23 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (define (length segment)
   (define (square x)
-	(* x x))
+    (* x x))
   (define (sqrt x)
-	(define (good-enough? guess x)
-	  (< (abs (- ((lambda (x) (* x x))
-				  guess) x)) 0.001))
-	(define (improve guess x)
-	  ((lambda (a b) (/ (+ a b) 2.0))
-	   guess (/ x guess)))
-	(define (sqrt-iter guess x)
-	  (if (good-enough? guess x)
-		  guess
-		  (sqrt-iter (improve guess x) x)))
-	(sqrt-iter 1.0 x))
+    (define (good-enough? guess x)
+      (< (abs (- ((lambda (x) (* x x))
+		  guess) x)) 0.001))
+    (define (improve guess x)
+      ((lambda (a b) (/ (+ a b) 2.0))
+       guess (/ x guess)))
+    (define (sqrt-iter guess x)
+      (if (good-enough? guess x)
+	  guess
+	  (sqrt-iter (improve guess x) x)))
+    (sqrt-iter 1.0 x))
   (sqrt (+ (square (- (x-point (start-segment segment))
-					  (x-point (end-segment segment))))
-		   (square (- (y-point (start-segment segment))
-					  (y-point (end-segment segment)))))))
+		      (x-point (end-segment segment))))
+	   (square (- (y-point (start-segment segment))
+		      (y-point (end-segment segment)))))))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; 构造矩形需要线段和点的构造函数和选择函数
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -49,11 +49,11 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (define (area rectangle)
   (* (len-rectangle rectangle)
-	 (wid-rectangle rectangle)))
+     (wid-rectangle rectangle)))
 (define (perimeter rectangle)
   (* (+ (len-rectangle rectangle)
-		(wid-rectangle rectangle))
-	 2))
+	(wid-rectangle rectangle))
+     2))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; 使用面积和周长函数进行计算
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -61,10 +61,10 @@
 
 (begin
   (define sample
-	(make-rectangle (make-segment (make-point 0 0)
-								  (make-point 0 3.46410161513748))
-					(make-segment (make-point 0 0)
-								  (make-point 2 0))))
+    (make-rectangle (make-segment (make-point 0 0)
+				  (make-point 0 3.46410161513748))
+		    (make-segment (make-point 0 0)
+				  (make-point 2 0))))
   (display (area sample))
   (newline)
   (display (perimeter sample))

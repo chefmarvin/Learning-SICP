@@ -20,9 +20,9 @@
 
 (define (make-sum a1 a2)    ;; 构造起 a1 与 a2 的和式
   (cond ((=number? a1 0) a2)
-		((=number? a2 0) a1)
-		((and (number? a1) (number? a2)) (+ a1 a2))
-		(else (list '+ a1 a2))))
+	((=number? a2 0) a1)
+	((and (number? a1) (number? a2)) (+ a1 a2))
+	(else (list '+ a1 a2))))
 
 (define (product? e)    ;; e 是乘式
   (and (pair? e) (eq? (car e) '*)))
@@ -35,10 +35,10 @@
 
 (define (make-product m1 m2)    ;; 构造起 m1 与 m2 的乘式
   (cond ((or (=number? m1 0) (=number? m2 0)) 0)
-		((=number? m1 1) m2)
-		((=number? m2 1) m1)
-		((and (number? m1) (number? m2)) (* m1 m2))
-		(else (list '* m1 m2))))
+	((=number? m1 1) m2)
+	((=number? m2 1) m1)
+	((and (number? m1) (number? m2)) (* m1 m2))
+	(else (list '* m1 m2))))
 
 (define (exponentiation? e)    ;; e 是乘幂式吗？
   (and (pair? e) (eq? (car e) '**)))
@@ -51,40 +51,40 @@
 
 (define (make-exponentiation s1 s2)    ;; 构造起 s1 与 s2 的乘幂式
   (define (exp a b)
-	(define (exp-iter a b counter)
-	  (if (= counter b)
-		  a
-		  (* a (exp-iter a b (+ counter 1)))))
-	(exp-iter a b 1))
+    (define (exp-iter a b counter)
+      (if (= counter b)
+	  a
+	  (* a (exp-iter a b (+ counter 1)))))
+    (exp-iter a b 1))
   (cond ((=number? s1 0) 0)
-		((=number? s1 1) 1)
-		((=number? s2 0) 1)
-		((=number? s2 1) s1)
-		((and (number? s1) (number? s2)) (exp s1 s2))
-		(else (list '** s1 s2))))
+	((=number? s1 1) 1)
+	((=number? s2 0) 1)
+	((=number? s2 1) s1)
+	((and (number? s1) (number? s2)) (exp s1 s2))
+	(else (list '** s1 s2))))
 
 (define (deriv exp var)
   (cond ((number? exp) 0)
-		((variable? exp)
-		 (if (same-variable? exp var)
-			 1
-			 0))
-		((sum? exp)
-		 (make-sum (deriv (addend exp) var)
-				   (deriv (augend exp) var)))
-		((product? exp)
-		 (make-sum (make-product (multiplier exp)
-								 (deriv (multiplicand exp) var))
-				   (make-product (deriv (multiplier exp) var)
-								 (multiplicand exp))))
-		((exponentiation? exp)
-		 (make-product (make-product (exponent exp)
-									 (make-exponentiation (base exp)
-														  (make-sum (exponent exp)
-																	-1)))
-					   (deriv (base exp)
-							  var)))
-		(else (error "unknown expression type -- DERIV exp" exp))))
+	((variable? exp)
+	 (if (same-variable? exp var)
+	     1
+	     0))
+	((sum? exp)
+	 (make-sum (deriv (addend exp) var)
+		   (deriv (augend exp) var)))
+	((product? exp)
+	 (make-sum (make-product (multiplier exp)
+				 (deriv (multiplicand exp) var))
+		   (make-product (deriv (multiplier exp) var)
+				 (multiplicand exp))))
+	((exponentiation? exp)
+	 (make-product (make-product (exponent exp)
+				     (make-exponentiation (base exp)
+							  (make-sum (exponent exp)
+								    -1)))
+		       (deriv (base exp)
+			      var)))
+	(else (error "unknown expression type -- DERIV exp" exp))))
 
 (begin
   (display (deriv '(+ x 3) 'x))

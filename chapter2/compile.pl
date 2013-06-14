@@ -7,29 +7,29 @@ $id = "$ARGV[0]";
 $compiler = "$ARGV[1]";
 
 if (!$compiler) {
-	if ($id) {
-		&Guile;
-		&Racket;
-	} else {
-		print "Argument lost.\n";
-	}
+    if ($id) {
+	&Guile;
+	&Racket;
+    } else {
+	print "Argument lost.\n";
+    }
 } else {
-	switch ($compiler) {
-		case "guile" { &Guile }
-		case "racket" { &Racket }
-	}
+    switch ($compiler) {
+	case "guile" { &Guile }
+	case "racket" { &Racket }
+    }
 }
 
 # Guile
 sub Guile {
-	print "========== *Guile* ==========\n";
-	$guile = "guile ".$chapter."-".$id.".scm";
-	system($guile);
+    print "========== *Guile* ==========\n";
+    $guile = "guile ".$chapter."-".$id.".scm";
+    system($guile);
 }
 
 # Racket
 sub Racket {
-	print "========== *Racket* ==========\n";
-	$racket = "mzscheme -r ".$chapter."-".$id.".scm";
-	system($racket);
+    print "========== *Racket* ==========\n";
+    $racket = "mzscheme -r ".$chapter."-".$id.".scm";
+    system($racket);
 }

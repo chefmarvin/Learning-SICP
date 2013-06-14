@@ -9,11 +9,11 @@
 ;; ...
 (define (f n)
   (define (f-iter target num3 num2 num1 counter)
-	(if (< target 3)
-		target
-		(if (= counter target)
-			(+ num1 (* 2 num2) (* 3 num3))
-			(f-iter target num2 num1 (+ num1 (* 2 num2) (* 3 num3)) (+ counter 1)))))
+    (if (< target 3)
+	target
+	(if (= counter target)
+	    (+ num1 (* 2 num2) (* 3 num3))
+	    (f-iter target num2 num1 (+ num1 (* 2 num2) (* 3 num3)) (+ counter 1)))))
   (f-iter n 0 1 2 3))
 (begin
   (display (f (read)))

@@ -7,8 +7,8 @@
 ;; ()
 (define (+ a b)
   (if (= a 0)
-	  b
-	  (inc (+ (dec a) b))))
+      b
+      (inc (+ (dec a) b))))
 ;; a减到0为止
 ;; (+ 3 4)
 ;; (+ 2 5)
@@ -16,5 +16,5 @@
 ;; (+ 0 7)
 (define (+ a b)
   (if (= a 0)
-	  b
-	  (+ (dec a) (inc b))))
+      b
+      (+ (dec a) (inc b))))

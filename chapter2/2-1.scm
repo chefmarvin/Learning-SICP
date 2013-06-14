@@ -2,18 +2,18 @@
 ;; 构造序对
 (define (make-rat n d)
   (define (gcd x y)
-	(if (= y 0)
-		x
-		(gcd y (remainder x y))))
+    (if (= y 0)
+	x
+	(gcd y (remainder x y))))
   (define (check a b)
-	(if (= b 0)
-		(error "0 can't be a dividend.")
-		(cond ((and (positive? a) (positive? b)) (cons a b))
-		  ((and (positive? a) (negative? b)) (cons (- a) (- b)))
-		  ((and (negative? a) (positive? b)) (cons a b))
-		  (else (cons a b)))))
+    (if (= b 0)
+	(error "0 can't be a dividend.")
+	(cond ((and (positive? a) (positive? b)) (cons a b))
+	      ((and (positive? a) (negative? b)) (cons (- a) (- b)))
+	      ((and (negative? a) (positive? b)) (cons a b))
+	      (else (cons a b)))))
   (let ((g (gcd n d)))
-	(check (/ n g) (/ d g))))
+    (check (/ n g) (/ d g))))
 ;; 解析序对
 (define (numer x)
   (car x))
@@ -29,25 +29,25 @@
 ;; 有理数加
 (define (add-rat x y)
   (make-rat (+ (* (numer x) (denom y))
-			   (* (numer y) (denom x)))
-			(* (denom x) (denom y))))
+	       (* (numer y) (denom x)))
+	    (* (denom x) (denom y))))
 ;; 有理数减
 (define (sub-rat x y)
   (make-rat (- (* (numer x) (denom y))
-			   (* (numer y) (denom x)))
-			(* (denom x) (denom y))))
+	       (* (numer y) (denom x)))
+	    (* (denom x) (denom y))))
 ;; 有理数乘
 (define (mul-rat x y)
   (make-rat (* (numer x) (numer y))
-			(* (denom x) (denom y))))
+	    (* (denom x) (denom y))))
 ;; 有理数除
 (define (div-rat x y)
   (make-rat (* (numer x) (denom y))
-			(* (denom x) (numer y))))
+	    (* (denom x) (numer y))))
 ;; 有理数判等
 (define (equal-rat? x y)
   (= (* (numer x) (denom y))
-	 (* (numer y) (denom x))))
+     (* (numer y) (denom x))))
 ;;定义一个有理数
 ;; 1/2
 (define one-half
@@ -69,5 +69,5 @@
   (print-rat (make-rat 0 -2))
   (print-rat (make-rat 0 2))
   (if (equal-rat? one-half another-one-half)
-	  (display "equal\n")
-	  (display "not equal\n")))
+      (display "equal\n")
+      (display "not equal\n")))
