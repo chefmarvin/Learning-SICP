@@ -19,16 +19,12 @@
 ;; 确定在一个格局中，在第 k 列的皇后相对于其他列的皇后是否安全
 ;; 粗略想想应该是递归判断的
 (define (safe? k position)
-  (if (= k 2)
-      (begin
-	(display position)
-	(newline))
-      '())
   position)
 
 ;; 将一个新的行列格局加入一个格局集合
 (define (adjoin-position new-row k rest-of-queens)
-  (append (list new-row k)    ;; (list (list new-row k))
+  (append (list (list new-row k))
+	  ;; (list new-row k)
 	  rest-of-queens))
 
 ;; 表示空的格局集合
@@ -48,8 +44,7 @@
 	    (map (lambda (new-row)
 		   (adjoin-position new-row k rest-of-queens))
 		 (enumerate-interval 1 board-size)))
-	  (queen-cols (- k 1))))
-	))
+	  (queen-cols (- k 1))))))
   (queen-cols board-size))
 
 (begin

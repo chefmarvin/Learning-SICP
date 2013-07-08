@@ -3,5 +3,5 @@
   ())
 
 (begin
-  ()
+  (display ())
   (newline))

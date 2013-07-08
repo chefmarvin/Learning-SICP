@@ -20,5 +20,5 @@
   (cc amount 5))
 
 (begin
-  (display (count-change uk-coins 100))
+  (display (count-change us-coins 100))
   (newline))
